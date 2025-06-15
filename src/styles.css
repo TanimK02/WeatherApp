@@ -1,0 +1,279 @@
+@font-face {
+    font-family: "montserrat";
+    src: url(./assets/Montserrat/Montserrat-VariableFont_wght.ttf) format("truetype");
+}
+
+*,
+::after,
+::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "montserrat";
+}
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    padding: 20px;
+    display: flex;
+    position: relative;
+}
+
+.todayContainer {
+    width: 65%;
+    height: 100%;
+    margin-right: 2rem;
+}
+
+.overviewContainer {
+    width: 35%;
+    height: 100%;
+}
+
+input[type="search"] {
+    border: 1px solid rgba(194, 191, 191, 0.6);
+    border-radius: 20px;
+    font-size: 1rem;
+    height: 2rem;
+    width: 100%;
+    padding-left: 1rem;
+    outline: none;
+}
+
+.currTempDiv {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.currTempDiv .imgContainer {
+    width: 25%;
+}
+
+.currStats {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+}
+
+.locationH1 {
+    font-size: 2.75rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.rainChanceP {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.tempH1 {
+    font-size: 4rem;
+    font-weight: 600;
+}
+
+.conditionsDiv {
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: 50% 50%;
+    grid-auto-rows: 100px;
+    column-gap: 1rem;
+    row-gap: 1rem;
+}
+
+.conditionCard {
+    display: flex;
+    border: 1px solid rgba(194, 191, 191, 0.6);
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+.conditionCard img {
+    width: 30px;
+    margin-right: 0.5rem;
+}
+
+.infoTitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.infoSum {
+    font-size: 2.25rem;
+    font-weight: 500;
+}
+
+.weatherOverview {
+    margin-top: 1rem;
+    border: 1px solid rgba(194, 191, 191, 0.6);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 1rem;
+
+}
+
+.weatherTimeContainer {
+    display: flex;
+    overflow-x: auto;
+}
+
+.filler {
+    height: 2rem;
+    display: flex;
+    justify-content: end;
+}
+
+.cf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    border: 1px solid rgb(194, 191, 191);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.cf div {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: rgb(82, 81, 81);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cf div:first-of-type {
+    padding-left: 2rem;
+    padding-right: 1rem;
+    background-color: darkgray;
+    height: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+}
+
+.cf div:last-of-type {
+    padding-right: 2rem;
+    padding-left: 1rem;
+    height: 100%;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.cfFiller {
+    width: 1px;
+    height: 70%;
+    background-color: rgb(194, 191, 191);
+}
+
+.weatherP {
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.timeCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeCard+.timeCard {
+    border-left: 1px solid rgb(194, 191, 191);
+    margin-left: 1rem;
+    padding-left: 1rem;
+}
+
+.timeCard img {
+    width: 100px;
+    margin-bottom: 0.5rem;
+}
+
+.timeCardTime {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.timeCardTemp {
+    font-weight: 600;
+    font-size: 1.75rem;
+}
+
+.fiveDayContainer {
+    border: 1px solid rgba(194, 191, 191, 0.6);
+    border-radius: 20px;
+    padding: 2rem;
+}
+
+.forecastList li {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+li+li {
+    border-top: 1px solid rgba(194, 191, 191, 0.6);
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.forecastList li p {
+    font-size: 1.25rem;
+}
+
+.hLTemp {
+    display: flex;
+}
+
+.hLTemp p:first-of-type {
+    font-weight: 600;
+    margin-right: 0.25rem;
+}
+
+.liInternalDiv {
+    display: flex;
+    align-items: center;
+}
+
+.liInternalDiv img {
+    width: 60px;
+}
+
+.liInternalDiv p {
+    margin-left: 1rem;
+    font-weight: 600;
+}
+
+.loader {
+    display: none;
+    position: absolute;
+    border: 16px solid #f3f3f3;
+    /* Light grey */
+    border-top: 16px solid gray;
+    /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
