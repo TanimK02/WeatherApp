@@ -24,6 +24,13 @@ function tempConvertor(temp) {
     }
 }
 
+function parseCurrentHour(datetimeStr) {
+    if (!datetimeStr || typeof datetimeStr !== "string") return 12;
+    const timePart = datetimeStr.includes("T") ? (datetimeStr.split("T")[1] || "") : datetimeStr;
+    const h = Number(timePart.slice(0, 2));
+    return Number.isFinite(h) ? h : 12;
+}
+
 function timeConvertor(time) {
     const [hour, minute, second] = time.split(":");
     let returnHour = hour > 12 ? hour - 12 : hour.slice(1, 2);
@@ -108,7 +115,9 @@ function loadInTimeCards(hours, time, sparehours) {
 }
 
 function forecastDayLabel(datetimeStr) {
-    const [y, m, d] = datetimeStr.split("-").map(Number);
+    const datePart = String(datetimeStr).slice(0, 10);
+    const [y, m, d] = datePart.split("-").map(Number);
+    if (!Number.isFinite(y) || !Number.isFinite(m) || !Number.isFinite(d)) return "—";
     const forecastDate = new Date(y, m - 1, d);
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -148,8 +157,8 @@ let data;
 getWeather("New York City").then((result) => {
     data = result;
     loadInCurrent(data);
-    loadInTimeCards(data.days[0].hours, Number(data.currentConditions.datetime.slice(0, 2)), data.days[1].hours);
     loadIn5Forecast(data.days);
+    loadInTimeCards(data.days[0].hours, parseCurrentHour(data.currentConditions.datetime), data.days[1]?.hours ?? []);
 }).catch((error) => {
     alert("Make sure location is spelt correctly. If location is spelt correctly try again.")
 }).finally(() => {
@@ -162,8 +171,8 @@ input.addEventListener("keypress", (event) => {
         getWeather(input.value).then((result) => {
             data = result;
             loadInCurrent(data);
-            loadInTimeCards(data.days[0].hours, Number(data.currentConditions.datetime.slice(0, 2)), data.days[1].hours);
             loadIn5Forecast(data.days);
+            loadInTimeCards(data.days[0].hours, parseCurrentHour(data.currentConditions.datetime), data.days[1]?.hours ?? []);
         }).catch((error) => {
             alert("Make sure location is spelt correctly. If location is spelt correctly try again.")
         }).finally(() => {
@@ -179,8 +188,8 @@ f.addEventListener("click", () => {
     f.style.backgroundColor = "darkgray";
     tempType = "F";
     loadInCurrent(data);
-    loadInTimeCards(data.days[0].hours, Number(data.currentConditions.datetime.slice(0, 2)), data.days[1].hours);
     loadIn5Forecast(data.days);
+    loadInTimeCards(data.days[0].hours, parseCurrentHour(data.currentConditions.datetime), data.days[1]?.hours ?? []);
     c.style.backgroundColor = "transparent";
 })
 
@@ -188,7 +197,7 @@ c.addEventListener("click", () => {
     c.style.backgroundColor = "darkgray";
     tempType = "C";
     loadInCurrent(data);
-    loadInTimeCards(data.days[0].hours, Number(data.currentConditions.datetime.slice(0, 2)), data.days[1].hours);
     loadIn5Forecast(data.days);
+    loadInTimeCards(data.days[0].hours, parseCurrentHour(data.currentConditions.datetime), data.days[1]?.hours ?? []);
     f.style.backgroundColor = "transparent";
 })
