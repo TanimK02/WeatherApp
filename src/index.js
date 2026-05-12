@@ -107,13 +107,26 @@ function loadInTimeCards(hours, time, sparehours) {
 
 }
 
+function forecastDayLabel(datetimeStr) {
+    const [y, m, d] = datetimeStr.split("-").map(Number);
+    const forecastDate = new Date(y, m - 1, d);
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    if (forecastDate.getTime() === today.getTime()) return "Today";
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    if (forecastDate.getTime() === tomorrow.getTime()) return "Tomorrow";
+    return forecastDate.toLocaleDateString(undefined, { weekday: "short" });
+}
+
 function loadIn5Forecast(days) {
     const forecastList = document.getElementById("forecastList");
     forecastList.innerText = "";
     for (let i = 0; i < 5; i++) {
         const li = document.createElement("li");
+        const dayLabel = forecastDayLabel(days[i].datetime);
         li.innerHTML = `
-        <p>Today</p>
+        <p>${dayLabel}</p>
                     <div class="liInternalDiv">
                         <img id=liImg${i} src="./assets/icons/hail.svg" />
                         <p>${days[i].conditions}</p>
